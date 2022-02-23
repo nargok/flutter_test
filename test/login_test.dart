@@ -20,21 +20,20 @@ void main() {
 
 
  group('ログインする', () {
+   const email = "test@test.com";
+   const pass = "password";
+   final expected = Future<User>.value(User(userId: 1));
+
    test('リポジトリのログイン実行', () {
-     var email = "test@test.com";
-     var pass = "password";
     when(repository.login(email: email, pass: pass))
-      .thenAnswer((_) => null);
+      .thenAnswer((_) => expected);
     useCase(email: email, pass: pass);
    });
-   test('リポジトリのログイン実行結果を返す', () async {
-     var email = "test@test.com";
-     var pass = "password";
+   test('リポジトリのログイン実行結果を返す', () {
      when(repository.login(email: email, pass: pass))
-       .thenAnswer((_) => null);
+       .thenAnswer((_) => expected);
 
-     final expected = User(userId: 1);
-     final actual = await useCase(email: email, pass: pass);
+     final actual = useCase(email: email, pass: pass);
 
      expect(actual, expected);
    });

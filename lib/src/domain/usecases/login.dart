@@ -7,7 +7,6 @@ class Login {
   Login({required this.repository});
 
   Future<User> call({required String email, required String pass}) {
-    repository.login(email: email, pass: pass);
-    return Future.value(User(userId: 1));
+    return repository.login(email: email, pass: pass);
   }
 }
