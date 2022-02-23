@@ -3,10 +3,9 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
-
 import 'user_remote_data_source_test.mocks.dart';
-
 import 'package:my_app/src/data/datasource/remote/user_remote_data_source.dart';
+import 'package:my_app/src/core/params/login_request.dart';
 
 @GenerateMocks([http.Client])
 void main() {
@@ -20,13 +19,14 @@ void main() {
 
   group('ログインAPI', () {
     test('HTTPクライアントでPOST', () {
-      final url = Uri.parse('http://localhost:3000/api/login');
-      final body = {'email': 'test@example.com', 'password': 'password1'};
-      when(client.post(url, body: body))
+      const email = "test@example.com";
+      const password = "password";
+      final request = LoginRequest(email: email, password: password);
+      when(client.post(request.url, body: request.body))
         .thenAnswer((realInvocation) async => http.Response("{{\"user_id\": 1}}", 200));
 
       remoteDataSource.login(email: 'test@example.com', pass: 'password');
-      verify(client.post(url, body: body));
+      verify(client.post(request.url, body: request.body));
     });
     test('HTTPクライアントのレスポンスをモデルへ変換し返す', () {});
   });
