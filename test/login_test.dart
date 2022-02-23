@@ -4,21 +4,8 @@ import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'login_test.mocks.dart';
 
-// todo 後で移動する
-abstract class UserRepository {
-  login({required String email, required String pass}) {}
-}
-
-
-class Login {
-  final UserRepository repository;
-
-  Login({required this.repository});
-
-  call({required String email, required String pass}) {
-    repository.login(email: email, pass: pass);
-  }
-}
+import 'package:my_app/src/domain/repositories/user_repository.dart';
+import 'package:my_app/src/domain/usecases/login.dart';
 
 @GenerateMocks([UserRepository])
 void main() {

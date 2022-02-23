@@ -3,8 +3,7 @@
 // Do not manually edit this file.
 
 import 'package:mockito/mockito.dart' as _i1;
-
-import 'login_test.dart' as _i2;
+import 'package:my_app/src/domain/repositories/user_repository.dart' as _i2;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -23,4 +22,8 @@ class MockUserRepository extends _i1.Mock implements _i2.UserRepository {
   MockUserRepository() {
     _i1.throwOnMissingStub(this);
   }
+
+  @override
+  dynamic login({String? email, String? pass}) => super.noSuchMethod(
+      Invocation.method(#login, [], {#email: email, #pass: pass}));
 }
